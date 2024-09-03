@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 class Task
 {
   public function __construct(
@@ -70,6 +70,8 @@ Route::get('/tasks', function () {
 })->name('tasks.index');
 
 
+Route::view('/tasks/create', 'create')->name('tasks.create');
+
 // we are using use() when we passing data
 // Route::get('/tasks/{id}' , function ($id) use($tasks) {
 Route::get('/tasks/{id}' , function ($id) {
@@ -85,6 +87,10 @@ Route::get('/tasks/{id}' , function ($id) {
       ]);
 
 })->name('tasks.show');
+
+Route::post('/tasks', function(Request $request) {
+  dd($request->all());
+})->name('tasks.store');
 
 // set up name for route
 // Route::get("/xxx", function () {
@@ -103,6 +109,8 @@ Route::get('/tasks/{id}' , function ($id) {
 Route::fallback(function () {
     return 'Still ot somwhere!';
 });
+
+
 
 
 // GET
