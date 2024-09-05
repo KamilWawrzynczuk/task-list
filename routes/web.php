@@ -102,7 +102,8 @@ Route::post('/tasks', function(Request $request) {
   $task->completed = false;
   $task->save();
 
-  return redirect()->route('tasks.show', ['id'=> $task->id]);
+  return redirect()->route('tasks.show', ['id'=> $task->id])
+    ->with('success', 'Task created successfuly!');
 
 })->name('tasks.store');
 
