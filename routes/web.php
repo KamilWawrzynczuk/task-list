@@ -72,6 +72,16 @@ Route::get('/tasks', function () {
 
 Route::view('/tasks/create', 'create')->name('tasks.create');
 
+
+Route::get('/tasks/{id}/edit' , function ($id) {
+
+  return view('edit', [
+  'task' => \App\Models\Task::findOrFail($id)
+]);
+
+})->name('tasks.edit');
+
+
 // we are using use() when we passing data
 // Route::get('/tasks/{id}' , function ($id) use($tasks) {
 Route::get('/tasks/{id}' , function ($id) {
@@ -106,6 +116,25 @@ Route::post('/tasks', function(Request $request) {
     ->with('success', 'Task created successfuly!');
 
 })->name('tasks.store');
+
+Route::put('/tasks/{id}', function($id, Request $request) {
+  $data = $request->validate([
+    'title'=> 'required|max:255',
+    'description' => 'required',
+    'long_description' => 'required',
+  ]);
+
+  $task = App\Models\Task::findOrFail($id);
+  $task->title = $data['title'];
+  $task->description = $data['description'];
+  $task->long_description = $data['long_description'];
+  $task->completed = false;
+  $task->save();
+
+  return redirect()->route('tasks.show', ['id'=> $task->id])
+    ->with('success', 'Task updated successfuly!');
+
+})->name('tasks.update');
 
 // set up name for route
 // Route::get("/xxx", function () {
