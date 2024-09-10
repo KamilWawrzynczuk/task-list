@@ -12,7 +12,8 @@ Route::get('/tasks', function () {
     return view('index', [
       // we want to get all tasks. We want most recent task first
       // 'tasks'=> \App\Models\Task::latest()->where('completed', true)->get(), methods from Query Builder
-       'tasks'=> Task::latest()->get()
+      // or paginate() to use paginations
+       'tasks'=> Task::latest()->paginate(10)
     ]
  );
 })->name('tasks.index');
