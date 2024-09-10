@@ -58,6 +58,14 @@ Route::put('/tasks/{task}', function(Task $task, TaskRequest $request) {
 
 })->name('tasks.update');
 
+
+Route::delete('task/{task}', function(Task $task){
+  $task->delete();
+
+  return redirect()->route('tasks.index')
+    ->with('success','Task deleted successfuly');
+})->name('tasks.destroy');
+
 // If route is not a match
 Route::fallback(function () {
     return 'Still ot somwhere!';
