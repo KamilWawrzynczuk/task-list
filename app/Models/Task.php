@@ -24,4 +24,9 @@ class Task extends Model
     // you can set wich one are guarded but if you do it then every new field will be by default fillable.
     // so it is better to just use fillable wothout guarded
     // protected $guarded = ['id','created_at','updated_at'];
+
+    public function toogleComplete() {
+        $this->completed = !$this->completed;
+        $this->save();
+    }
 }

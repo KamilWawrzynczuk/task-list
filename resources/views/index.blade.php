@@ -10,6 +10,9 @@
 @endisset --}}
 @section('content')
     <div>
+        <a href="{{ route('tasks.create') }}">Add task</a>
+    </div>
+    <div>
         {{-- Another way to check if something is in an array  --}}
         {{-- @if (count($tasks)) --}}
             @forelse ($tasks as $task)

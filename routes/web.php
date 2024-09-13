@@ -67,6 +67,12 @@ Route::delete('task/{task}', function(Task $task){
     ->with('success','Task deleted successfuly');
 })->name('tasks.destroy');
 
+Route::put('tasks/{task}/toogle-complete', function(Task $task){
+  $task->toogleComplete();
+
+  return redirect()->back()->with('success','Task updated sucessfully');
+})->name('tasks.toogle-complete');
+
 // If route is not a match
 Route::fallback(function () {
     return 'Still ot somwhere!';
