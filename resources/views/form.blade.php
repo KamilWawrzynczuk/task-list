@@ -3,12 +3,7 @@
 @section('title', isset($task) ? 'Edit Task' : 'Add Task')
 
 @section('styles')
-<style>
-    .error-message {
-        color: red;
-        font-size: 0.8rem;
-    }
-</style>
+
 @endsection
 
 @section('content')
@@ -17,41 +12,42 @@
         @isset($task)
             @method('PUT')
         @endisset
-        <div>
+        <div class="mb-4">
             <lable for="title">
                 Title
             </lable>
-            <input type="text" name="title" id="title" value="{{ $task->title ?? old('title') }}"/>
+            <input @class(['border-red-500' => $errors->has('title')]) type="text" name="title" id="title" value="{{ $task->title ?? old('title') }}"/>
             @error('title')
-                <p class="error-message">{{$message}}</p>
+                <p class="error">{{$message}}</p>
             @enderror
         </div>
 
-        <div>
+        <div class="mb-4">
             <label for="description">
                 Descritpion
             </label>
-            <textarea name="description" id="description" rows="5">{{ $task->title ?? old('description') }}</textarea>
+            <textarea  @class(['border-red-500' => $errors->has('description')]) name="description" id="description" rows="5">{{ $task->title ?? old('description') }}</textarea>
             @error('description')
-                <p class="error-message">{{$message}}</p>
+                <p class="error">{{$message}}</p>
             @enderror
         </div>
 
-        <div>
+        <div class="mb-4">
             <label for="long_description">
                 Long Descritpion
             </label>
-            <textarea name="long_description" id="long_description" rows="10">{{ $task->title ?? old('long_description') }}</textarea>
+            <textarea  @class(['border-red-500' => $errors->has('long_description')]) name="long_description" id="long_description" rows="10">{{ $task->title ?? old('long_description') }}</textarea>
             @error('long_description')
-                <p class="error-message">{{$message}}</p>
+                <p class="error">{{$message}}</p>
             @enderror
         </div>
 
-        <div>
-            <button type="submit">@isset($task)
+        <div class="flex gap-2 items-center">
+            <button class="btn" type="submit">@isset($task)
                 Update task
                 @endisset
                 Add Task</button>
+            <a href="{{ route('tasks.index') }}" class="link">Cancel</a>
         </div>
     </form>
 @endsection

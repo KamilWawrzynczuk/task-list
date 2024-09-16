@@ -9,22 +9,22 @@
 <div> The name is: {{ $name }}</div>
 @endisset --}}
 @section('content')
-    <div>
-        <a href="{{ route('tasks.create') }}">Add task</a>
-    </div>
+    <nav class="mb-4">
+        <a class="link" href="{{ route('tasks.create') }}">Add task</a>
+    </nav>
     <div>
         {{-- Another way to check if something is in an array  --}}
         {{-- @if (count($tasks)) --}}
             @forelse ($tasks as $task)
                 <div>
-                    <a href="{{ route('tasks.show', ['task' => $task->id]) }}">{{ $task->title}}</a>
+                    <a @class(['line-through' => $task->completed]) href="{{ route('tasks.show', ['task' => $task->id]) }}">{{ $task->title}}</a>
                 </div>
             @empty
                 <div>There are no tasks.. </div>
             @endforelse
         {{-- @endif --}}
             @if ($tasks->count())
-                <nav>
+                <nav class="mt-4 flex flex-col">
                     {{ $tasks->links() }}
                 </nav>
             @endif
